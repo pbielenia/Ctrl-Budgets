@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>{{budget.name}}</h1>
+<a href="{% url 'savings' %}">
+    <h2>Back</h2>
+</a>
+
+{% endblock %}

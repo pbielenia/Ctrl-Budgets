@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>Savings Template</h1>
+
+<div>
+
+    <div>
+
+        {% for budget in budgets%}
+            <div>
+                <h5>{{budget.id}} -- <a href="{% url 'budget' budget.id %}">{{budget.name}}</a></h5>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
