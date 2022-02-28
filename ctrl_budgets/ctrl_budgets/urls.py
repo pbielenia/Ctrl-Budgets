@@ -25,5 +25,5 @@ def home(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
-    path('savings/', include('savings.urls'))
+    path('investments/', include('investments.urls'))
 ]

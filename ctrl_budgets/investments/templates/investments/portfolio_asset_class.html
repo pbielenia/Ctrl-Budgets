@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+    td {
+        border: solid 1px lightgrey;
+    }
+</style>
+
+{% load custom_tags %}
+
+<h2>{{portfolio_element.portfolio}}</h2>
+<h1>{{portfolio_element.asset_type}}</h1>
+
+<h2>Aktywa</h2>
+{% if assets %}
+    <table>
+        <tr>
+            <td>Nazwa</td>
+            <td>Liczba jednostek</td>
+            <td>Wartość</td>
+        </tr>
+        {% for asset in assets %}
+        <tr>
+            <td>{{asset.name}}</td>
+            <td>{{asset.units_count|floatformat:0}}</td>
+            <td>{{asset.value|floatformat:2}} PLN</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+<div>Pusto</div>
+{% endif %}
+
+{% endblock %}

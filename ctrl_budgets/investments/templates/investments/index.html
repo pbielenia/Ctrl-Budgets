@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>Portfele inwestycyjne</h1>
+
+{% if portfolios %}
+    <ul>
+    {% for portfolio in portfolios %}
+        <li><a href="{% url 'investments:portfolio' portfolio.id %}">{{portfolio.name}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Brak portfeli inwestycyjnych</p>
+{% endif %}
+
+{% endblock %}
