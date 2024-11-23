@@ -3,7 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Portfolio(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, unique=True)
 
     def __str__(self):
         return self.name
@@ -57,7 +57,7 @@ class Asset(models.Model):
         return str(self.type) + ": " + str(self.name) + ' [' + str(self.currency) + ']'
 
 
-class RatingUpdate(models.Model):
+class Rating(models.Model):
     date = models.DateField()
     rating = models.DecimalField(max_digits=10, decimal_places=4)
 
@@ -65,13 +65,15 @@ class RatingUpdate(models.Model):
         return str(self.date) + ' - ' + str(self.rating)
 
 
-class CurrencyRatingUpdate(models.Model):
-    update = models.OneToOneField(RatingUpdate, on_delete=models.CASCADE)
+class CurrencyRating(models.Model):
+    date = models.DateField()
+    rating = models.DecimalField(max_digits=10, decimal_places=4)
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
 
 
-class AssetRatingUpdate(models.Model):
-    update = models.ForeignKey(RatingUpdate, on_delete=models.CASCADE)
+class AssetRating(models.Model):
+    date = models.DateField()
+    rating = models.DecimalField(max_digits=10, decimal_places=4)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -88,11 +90,11 @@ class TransactionType(models.Model):
 class Transaction(models.Model):
     type = models.ForeignKey(TransactionType, on_delete=models.CASCADE)
     asset_rating = models.ForeignKey(
-        AssetRatingUpdate, on_delete=models.CASCADE)
+        AssetRating, on_delete=models.CASCADE)
     # portfolio must have an appropriate asset type in its elements
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
     currency_rating = models.ForeignKey(
-        CurrencyRatingUpdate, on_delete=models.CASCADE, blank=True, null=True)
+        CurrencyRating, on_delete=models.CASCADE, blank=True, null=True)
     units_count = models.DecimalField(max_digits=10, decimal_places=4)
 
     def __str__(self):
