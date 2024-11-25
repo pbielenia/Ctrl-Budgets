@@ -18,7 +18,7 @@ class TargetAssetTypeWeight(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     def __str__(self):
-        return str(self.target) + ', ' + str(self.min) + '-' + str(self.max)
+        return "{} - {} - {}".format(self.target, self.min, self.max)
 
 
 class AssetType(models.Model):
@@ -35,7 +35,7 @@ class PortfolioElement(models.Model):
         TargetAssetTypeWeight, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.portfolio) + ': ' + str(self.asset_type)
+        return "{} - {}".format(self.portfolio, self.asset_type)
 
     class Meta:
         unique_together = ('portfolio', 'asset_type')
@@ -54,7 +54,7 @@ class Asset(models.Model):
     type = models.ForeignKey(AssetType, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.type) + ": " + str(self.name) + ' [' + str(self.currency) + ']'
+        return "{} - {} - {}".format(self.type, self.name, self.currency)
 
 
 class Rating(models.Model):
@@ -62,13 +62,16 @@ class Rating(models.Model):
     rating = models.DecimalField(max_digits=10, decimal_places=4)
 
     def __str__(self):
-        return str(self.date) + ' - ' + str(self.rating)
+        return "{} - {}".format(self.date, self.rating)
 
 
 class CurrencyRating(models.Model):
     date = models.DateField()
     rating = models.DecimalField(max_digits=10, decimal_places=4)
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} - {} - {}".format(str(self.date), str(self.rating), str(self.currency))
 
 
 class AssetRating(models.Model):
@@ -77,7 +80,7 @@ class AssetRating(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.date) + " - " + str(self.asset)
+        return "{} - {}".format(self.date, self.asset)
 
 
 class Transaction(models.Model):
@@ -98,4 +101,4 @@ class Transaction(models.Model):
     units_count = models.DecimalField(max_digits=10, decimal_places=4)
 
     def __str__(self):
-        return str(self.type) + " - " + str(self.asset_rating)
+        return "{} - {}".format(self.type, self.asset_rating)
