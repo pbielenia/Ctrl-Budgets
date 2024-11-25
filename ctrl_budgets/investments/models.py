@@ -77,7 +77,7 @@ class AssetRating(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.update) + " - " + str(self.asset)
+        return str(self.date) + " - " + str(self.asset)
 
 
 class TransactionType(models.Model):

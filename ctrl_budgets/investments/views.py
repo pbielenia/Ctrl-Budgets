@@ -20,15 +20,16 @@ def calc_units_count_from_transactions(transactions):
             units_count = units_count + transaction.units_count
         elif transaction.type.name == TRANSACTION_SELL:
             units_count = units_count - transaction.units_count
+
     return units_count
 
 
-def cals_recent_rating_from_transactions(transactions):
+def calc_recent_rating_from_transactions(transactions):
     if len(transactions) == 0:
         return 0
 
-    return transactions.order_by('-asset_rating__update__date')[
-        0].asset_rating.update.rating
+    return transactions.order_by('-asset_rating__date')[
+        0].asset_rating.rating
 
 
 def get_transactions_of_asset_in_portfolio(asset_id, portfolio_id):
@@ -43,7 +44,7 @@ def calc_value_of_asset_type_in_portfolio(asset_type_id, portfolio_id):
         transactions = get_transactions_of_asset_in_portfolio(
             asset.id, portfolio_id)
         units_count = calc_units_count_from_transactions(transactions)
-        recent_rating = cals_recent_rating_from_transactions(transactions)
+        recent_rating = calc_recent_rating_from_transactions(transactions)
         entire_value += units_count * recent_rating
     return float(entire_value)
 
@@ -62,20 +63,34 @@ def find_values_of_elements(portfolio_id, elements):
     return elements_values, portfolio_value
 
 
+def get_element_actual_weight(portfolio_value, element_value):
+    if portfolio_value == 0:
+        return '-'
+    else:
+        return element_value / portfolio_value * 100
+
+
+def get_element_deviation_weight(portfolio_value, actual_weight, target_weight):
+    if portfolio_value == 0:
+        return '-'
+    else:
+        return actual_weight - target_weight
+
+
 def make_elements_data(portfolio_value, elements, elements_values):
     elements_data = list()
 
     for element in elements:
         model = {
             'weight': element.weight,
-            'value': model['weight'].target / 100 * portfolio_value
+            'value': element.weight.target / 100 * portfolio_value
         }
         actual = {
-            'weight': actual['value'] / portfolio_value * 100,
+            'weight': get_element_actual_weight(portfolio_value, elements_values[element.id]),
             'value': elements_values[element.id]
         }
         deviation = {
-            'weight': actual['weight'] - model['weight'].target,
+            'weight': get_element_deviation_weight(portfolio_value, actual['weight'], model['weight'].target),
             'value': actual['value'] - model['value']
         }
 
@@ -95,6 +110,7 @@ def make_portfolios_data(portfolios) -> list:
         elements = PortfolioElement.objects.filter(portfolio=portfolio.pk)
         elements_values, portfolio_value = find_values_of_elements(portfolio.id, elements)
         portfolios_data.append({
+            'id': portfolio.id,
             'name': portfolio.name,
             'value': portfolio_value,
             'elements': make_elements_data(portfolio_value, elements, elements_values)
