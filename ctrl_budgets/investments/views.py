@@ -119,11 +119,34 @@ def make_portfolios_data(portfolios) -> list:
     return portfolios_data
 
 
-def index(request):
-    portfolios = Portfolio.objects.order_by('name')
+def make_targeted_budgets_data(targeted_budgets) -> list:
+    budgets_data = list()
+    for budget in targeted_budgets:
+        balance = 0
+        transactions = TargetedTransaction.objects.filter(targeted_budget=budget.id)
+        for transaction in transactions:
+            if transaction.type == TargetedTransaction.TYPE_BUY:
+                balance = balance + transaction.cost
+            elif transaction.type == TargetedTransaction.TYPE_SELL:
+                balance = balance - transaction.cost
 
+        budgets_data.append({
+            'id': budget.id,
+            'name': budget.name,
+            'balance': balance
+        })
+
+    return budgets_data
+
+
+def index(request):
     context = dict()
+
+    portfolios = Portfolio.objects.order_by('name')
     context['portfolios'] = make_portfolios_data(portfolios)
+
+    targeted_budgets = TargetedBudget.objects.order_by('name')
+    context['targeted_budgets'] = make_targeted_budgets_data(targeted_budgets)
 
     return render(request, 'investments/index.html', context)
 
@@ -236,3 +259,19 @@ def portfolio_element(request, portfolio_id, asset_type_id):
                'assets': assets_data}
 
     return render(request, 'investments/portfolio_asset_class.html', context)
+
+
+def targeted_budget_new(request):
+    pass
+
+
+def targeted_budget(request, pk):
+    pass
+
+
+def targeted_budget_transaction_new(request):
+    pass
+
+
+def targeted_budget_transaction(request, pk):
+    pass

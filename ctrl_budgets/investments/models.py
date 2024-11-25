@@ -102,3 +102,40 @@ class Transaction(models.Model):
 
     def __str__(self):
         return "{} - {}".format(self.type, self.asset_rating)
+
+
+class TargetedBudget(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class TargetedTransaction(models.Model):
+    TYPE_BUY = "BUY"
+    TYPE_SELL = "SELL"
+    TYPE_CHOICES = {
+        TYPE_BUY: "Buy",
+        TYPE_SELL: "Sell",
+    }
+
+    targeted_budget = models.ForeignKey(TargetedBudget, on_delete=models.CASCADE)
+    description = models.CharField(max_length=300)
+    type = models.CharField(max_length=4, choices=TYPE_CHOICES, default=TYPE_BUY)
+    cost = models.IntegerField(validators=[MinValueValidator(0)])
+    date = models.DateField()
+
+
+class PeriodicTargetedTransaction(models.Model):
+    TYPE_BUY = "BUY"
+    TYPE_SELL = "SELL"
+    TYPE_CHOICES = {
+        TYPE_BUY: "Buy",
+        TYPE_SELL: "Sell",
+    }
+
+    targeted_budget = models.ForeignKey(TargetedBudget, on_delete=models.CASCADE)
+    description = models.CharField(max_length=300)
+    type = models.CharField(max_length=4, choices=TYPE_CHOICES, default=TYPE_BUY)
+    start_date = models.DateField()
+    interval = models.DurationField()

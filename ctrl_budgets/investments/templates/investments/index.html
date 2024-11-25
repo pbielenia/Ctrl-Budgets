@@ -1,7 +1,10 @@
 {% extends 'ctrl_budgets/main.html' %}
 
+<br>
+
 {% block content %}
 <div>
+    <h1>Investment Budgets</h1>
     <div>
         <a href="{% url 'investments:new_portfolio' %}">Create new portfolio</a>
     </div>
@@ -14,54 +17,78 @@
         <a href="{% url 'investments:new_portfolio' %}">Add transaction</a>
     </div>
 
+    <br>
 
     {% for portfolio in portfolios %}
 
-    <!-- <div> -->
-    <h4>{{portfolio.name}}</h4>
-    <h4>Value: {{portfolio.value|floatformat:2}}</h4>
-    <a href="{% url 'investments:portfolio' portfolio.id %}">Details</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <td rowspan="3">Klasa aktywów</td>
-                <td colspan="4">Portfel modelowy</td>
-                <td colspan="2">Portfel rzeczywisty</td>
-                <td colspan="2">Odchylenie</td>
-            </tr>
-            <tr>
-                <td colspan="3">Waga</td>
-                <td rowspan="2">Kwota</td>
-                <td rowspan="2">Waga</td>
-                <td rowspan="2">Kwota</td>
-                <td rowspan="2">Waga</td>
-                <td rowspan="2">Kwota</td>
-            </tr>
-            <tr>
-                <td>Modelowa</td>
-                <td>Minimalna</td>
-                <td>Maksymalna</td>
-            </tr>
-        </thead>
+    <div>
+        <h4>{{portfolio.name}}</h4>
+        <h4>Value: {{portfolio.value|floatformat:2}}</h4>
+        <a href="{% url 'investments:portfolio' portfolio.id %}">Details</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td rowspan="3">Klasa aktywów</td>
+                    <td colspan="4">Portfel modelowy</td>
+                    <td colspan="2">Portfel rzeczywisty</td>
+                    <td colspan="2">Odchylenie</td>
+                </tr>
+                <tr>
+                    <td colspan="3">Waga</td>
+                    <td rowspan="2">Kwota</td>
+                    <td rowspan="2">Waga</td>
+                    <td rowspan="2">Kwota</td>
+                    <td rowspan="2">Waga</td>
+                    <td rowspan="2">Kwota</td>
+                </tr>
+                <tr>
+                    <td>Modelowa</td>
+                    <td>Minimalna</td>
+                    <td>Maksymalna</td>
+                </tr>
+            </thead>
 
-        <tbody>
-            {% for element in portfolio.elements %}
-            <tr>
-                <td>{{element.asset_type}} </td>
-                <td>{{element.model.weight.target}}%</td>
-                <td>{{element.model.weight.min}}%</td>
-                <td>{{element.model.weight.max}}%</td>
-                <td>{{element.model.value|floatformat:2}} PLN</td>
-                <td>{{element.actual.weight|floatformat:2}}%</td>
-                <td>{{element.actual.value|floatformat:2}} PLN</td>
-                <td>{{element.deviation.weight|floatformat:2}}%</td>
-                <td>{{element.deviation.value|floatformat:2}} PLN</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            <tbody>
+                {% for element in portfolio.elements %}
+                <tr>
+                    <td>{{element.asset_type}} </td>
+                    <td>{{element.model.weight.target}}%</td>
+                    <td>{{element.model.weight.min}}%</td>
+                    <td>{{element.model.weight.max}}%</td>
+                    <td>{{element.model.value|floatformat:2}} PLN</td>
+                    <td>{{element.actual.weight|floatformat:2}}%</td>
+                    <td>{{element.actual.value|floatformat:2}} PLN</td>
+                    <td>{{element.deviation.weight|floatformat:2}}%</td>
+                    <td>{{element.deviation.value|floatformat:2}} PLN</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endfor %}
+</div>
+
+<div>
+    <h1>Targeted Budgets</h1>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Balance</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for budget in targeted_budgets %}
+                <tr>
+                    <td>{{budget.name}}</td>
+                    <td>{{budget.balance}} PLN</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock %}
