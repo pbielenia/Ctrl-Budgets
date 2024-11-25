@@ -16,9 +16,9 @@ def calc_units_count_from_transactions(transactions):
 
     units_count = 0
     for transaction in transactions:
-        if transaction.type.name == TRANSACTION_BUY:
+        if transaction.type == TRANSACTION_BUY:
             units_count = units_count + transaction.units_count
-        elif transaction.type.name == TRANSACTION_SELL:
+        elif transaction.type == TRANSACTION_SELL:
             units_count = units_count - transaction.units_count
 
     return units_count

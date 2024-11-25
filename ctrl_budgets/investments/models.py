@@ -80,15 +80,15 @@ class AssetRating(models.Model):
         return str(self.date) + " - " + str(self.asset)
 
 
-class TransactionType(models.Model):
-    name = models.CharField(max_length=4, unique=True)
-
-    def __str__(self):
-        return self.name
-
-
 class Transaction(models.Model):
-    type = models.ForeignKey(TransactionType, on_delete=models.CASCADE)
+    TYPE_BUY = "BUY"
+    TYPE_SELL = "SELL"
+    TYPE_CHOICES = {
+        TYPE_BUY: "Buy",
+        TYPE_SELL: "Sell",
+    }
+
+    type = models.CharField(max_length=4, choices=TYPE_CHOICES, default=TYPE_BUY)
     asset_rating = models.ForeignKey(
         AssetRating, on_delete=models.CASCADE)
     # portfolio must have an appropriate asset type in its elements
