@@ -1,0 +1,34 @@
+{% extends 'ctrl_budgets/main.html' %}
+
+{% block content %}
+<h2>Targeted Budget</h2>
+<h1>{{budget.name}}</h1>
+
+<h3>Balance</h3>
+{{balance}} PLN
+
+<h3>Transactions</h3>
+<table>
+    <tr>
+        <td>Date</td>
+        <td>Cost (PLN)</td>
+        <td>Details</td>
+    </tr>
+    {% for transaction in transactions %}
+    <tr>
+        <td>{{transaction.date}}</td>
+        <td>{{transaction.cost}}</td>
+        <td>{{transaction.details}}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<h3>New transaction</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ new_transaction_form }}
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
