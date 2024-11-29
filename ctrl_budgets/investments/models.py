@@ -112,18 +112,21 @@ class TargetedBudget(models.Model):
 
 
 class TargetedTransaction(models.Model):
-    TYPE_BUY = "BUY"
-    TYPE_SELL = "SELL"
+    TYPE_DEPOSIT = "DEPOSIT"
+    TYPE_WITHDRAWAL = "WITHDRAWAL"
     TYPE_CHOICES = {
-        TYPE_BUY: "Buy",
-        TYPE_SELL: "Sell",
+        TYPE_DEPOSIT: "Deposit",
+        TYPE_WITHDRAWAL: "Withdrawal",
     }
 
     targeted_budget = models.ForeignKey(TargetedBudget, on_delete=models.CASCADE)
     description = models.CharField(max_length=300)
-    type = models.CharField(max_length=4, choices=TYPE_CHOICES, default=TYPE_BUY)
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES, default=TYPE_WITHDRAWAL)
     cost = models.IntegerField(validators=[MinValueValidator(0)])
     date = models.DateField()
+
+    class Meta:
+        ordering = ["-date", "cost"]
 
 
 class PeriodicTargetedTransaction(models.Model):

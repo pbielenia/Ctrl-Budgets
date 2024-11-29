@@ -28,8 +28,7 @@ def calc_recent_rating_from_transactions(transactions):
     if len(transactions) == 0:
         return 0
 
-    return transactions.order_by('-asset_rating__date')[
-        0].asset_rating.rating
+    return transactions.order_by('-asset_rating__date')[0].asset_rating.rating
 
 
 def get_transactions_of_asset_in_portfolio(asset_id, portfolio_id):
@@ -119,21 +118,29 @@ def make_portfolios_data(portfolios) -> list:
     return portfolios_data
 
 
+def calc_targeted_budget_balance(budget_id) -> float:
+    balance = 0
+    transactions = TargetedTransaction.objects.filter(targeted_budget=budget_id)
+
+    for transaction in transactions:
+        if transaction.type == TargetedTransaction.TYPE_DEPOSIT:
+            balance = balance + transaction.cost
+        elif transaction.type == TargetedTransaction.TYPE_WITHDRAWAL:
+            balance = balance - transaction.cost
+        else:
+            pass
+            # TODO: throw exception (or a red log) on unknown transaction type
+
+    return balance
+
+
 def make_targeted_budgets_data(targeted_budgets) -> list:
     budgets_data = list()
     for budget in targeted_budgets:
-        balance = 0
-        transactions = TargetedTransaction.objects.filter(targeted_budget=budget.id)
-        for transaction in transactions:
-            if transaction.type == TargetedTransaction.TYPE_BUY:
-                balance = balance + transaction.cost
-            elif transaction.type == TargetedTransaction.TYPE_SELL:
-                balance = balance - transaction.cost
-
         budgets_data.append({
             'id': budget.id,
             'name': budget.name,
-            'balance': balance
+            'balance': calc_targeted_budget_balance(budget.id)
         })
 
     return budgets_data
@@ -237,13 +244,14 @@ def portfolio_element(request, portfolio_id, asset_type_id):
         PortfolioElement, portfolio__id=portfolio_id, asset_type__id=asset_type_id)
     assets = Asset.objects.filter(type=asset_type_id)
 
+    # Collect assets data
     assets_data = list()
     for asset in assets:
         name = asset.name
         transactions = get_transactions_of_asset_in_portfolio(
             asset.id, portfolio_id)
         units_count = calc_units_count_from_transactions(transactions)
-        recent_rating = cals_recent_rating_from_transactions(transactions)
+        recent_rating = calc_recent_rating_from_transactions(transactions)
 
         value = recent_rating * units_count
         base_currency = asset.currency
@@ -255,8 +263,9 @@ def portfolio_element(request, portfolio_id, asset_type_id):
             'base_currency': base_currency
         })
 
-    context = {'portfolio_element': portfolio_element,
-               'assets': assets_data}
+    context = {
+        'portfolio_element': portfolio_element,
+        'assets': assets_data}
 
     return render(request, 'investments/portfolio_asset_class.html', context)
 
@@ -265,8 +274,53 @@ def targeted_budget_new(request):
     pass
 
 
-def targeted_budget(request, pk):
-    pass
+def make_targeted_budget_transactions_data(budget_id, number_of_transactions):
+    transactions = TargetedTransaction.objects.filter(targeted_budget=budget_id)[:number_of_transactions]
+    data = list()
+
+    for transaction in transactions:
+        cost = (-transaction.cost, transaction.cost)[transaction.type == transaction.TYPE_DEPOSIT]
+
+        data.append({
+            'date': transaction.date,
+            'cost': cost,
+            'details': transaction.description})
+
+    return data
+
+
+def make_new_targeted_transaction_form(request):
+    form = NewTargetedTransactionForm(request.POST)
+    return form if form.is_valid() else NewTargetedTransactionForm()
+
+
+def create_targeted_transaction_from_form(form, budget) -> None:
+    transaction = TargetedTransaction()
+    transaction.targeted_budget = budget
+    transaction.date = form.cleaned_data['date']
+    transaction.type = form.cleaned_data['type']
+    transaction.cost = form.cleaned_data['cost']
+    transaction.description = form.cleaned_data['description']
+    transaction.save()
+
+
+def targeted_budget(request, budget_id):
+    NUMBER_OF_TRANSACTIONS = 20
+
+    budget = get_object_or_404(TargetedBudget, id=budget_id)
+    new_transaction_form = make_new_targeted_transaction_form(request)
+
+    if new_transaction_form.is_valid():
+        create_targeted_transaction_from_form(new_transaction_form, budget)
+        return HttpResponseRedirect(reverse('investments:targeted_budget', args=(budget_id)))
+
+    context = {
+        'budget': budget,
+        'balance': calc_targeted_budget_balance(budget.id),
+        'transactions': make_targeted_budget_transactions_data(budget.id, NUMBER_OF_TRANSACTIONS),
+        'new_transaction_form': new_transaction_form,
+        'planned': []}
+    return render(request, 'investments/targeted-budget.html', context)
 
 
 def targeted_budget_transaction_new(request):

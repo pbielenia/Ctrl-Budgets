@@ -84,6 +84,7 @@
                 <tr>
                     <td>{{budget.name}}</td>
                     <td>{{budget.balance}} PLN</td>
+                    <td><a href="{% url 'investments:targeted_budget' budget.id %}">Details</a></td>
                     {% endfor %}
                 </tr>
             </tbody>
