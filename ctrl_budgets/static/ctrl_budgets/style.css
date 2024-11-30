@@ -169,8 +169,11 @@ a:active {
 }
 
 .form-input:focus,
-.form-input:active {
+.form-input:active,
+.form-select:focus,
+.form-select:active {
     outline: none;
+    border-color: #fff6;
 }
 
 .button {
@@ -190,7 +193,10 @@ a:active {
 
 }
 
-.button:hover {
+.button:hover,
+.button:focus,
+.button:active {
+    outline: none;
     background-color: rgb(28 28 28);
     color: white;
 }
