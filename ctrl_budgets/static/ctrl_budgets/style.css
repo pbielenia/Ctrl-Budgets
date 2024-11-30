@@ -169,9 +169,7 @@ a:active {
 }
 
 .form-input:focus,
-.form-input:active,
-.form-select:focus,
-.form-select:active {
+.form-input:active {
     outline: none;
     border-color: #fff6;
 }
@@ -208,6 +206,11 @@ a:active {
     margin-top: 20px;
 
     padding: .625rem .625rem;
+}
+
+.form-base select option {
+    color: rgb(165 180 252);
+    background-color: #2b2b2b;
 }
 
 .table-responsive {
