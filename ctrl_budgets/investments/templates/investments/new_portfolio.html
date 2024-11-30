@@ -1,7 +1,10 @@
 {% extends 'ctrl_budgets/main.html' %}
 
 {% block content %}
-New portfolio
+<div class="navbar">
+    <nav><a href="/investments">Control your budgets</a></nav>
+    <h3>Investment Portfolo / Create new</h3>
+</div>
 
 <form method="post">
     {% csrf_token %}

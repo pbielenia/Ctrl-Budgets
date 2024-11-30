@@ -321,11 +321,3 @@ def targeted_budget(request, budget_id):
         'new_transaction_form': new_transaction_form,
         'planned': []}
     return render(request, 'investments/targeted-budget.html', context)
-
-
-def targeted_budget_transaction_new(request):
-    pass
-
-
-def targeted_budget_transaction(request, pk):
-    pass

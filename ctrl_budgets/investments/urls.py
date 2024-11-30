@@ -11,6 +11,4 @@ urlpatterns = [
          views.portfolio_element, name='portfolio_element'),
     path('targeted-budget/new/', views.targeted_budget_new, name='targeted_budget_new'),
     path('targeted-budget/<str:budget_id>/', views.targeted_budget, name='targeted_budget'),
-    path('targeted-budget/transaction/new/', views.targeted_budget_transaction_new, name='targeted_budget_transaction_new'),
-    path('targeted-budget/transaction/<str:pk>', views.targeted_budget_transaction, name='targeted_budget_transaction'),
 ]

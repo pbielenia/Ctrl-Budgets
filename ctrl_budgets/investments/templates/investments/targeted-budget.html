@@ -1,34 +1,61 @@
 {% extends 'ctrl_budgets/main.html' %}
 
 {% block content %}
-<h2>Targeted Budget</h2>
-<h1>{{budget.name}}</h1>
+<div class="navbar">
+    <nav><a href="/investments">Control your budgets</a></nav>
+    <h3>Targeted Budget / {{ budget.name }}</h3>
+</div>
 
-<h3>Balance</h3>
-{{balance}} PLN
+<div class="content">
+    <div class="grid-item">
+        <div class="grid-item-header">Balance</div>
+        <div class="grid-item-body">
+            <div class="label-balance">{{balance}} PLN</div>
+        </div>
+    </div>
 
-<h3>Transactions</h3>
-<table>
-    <tr>
-        <td>Date</td>
-        <td>Cost (PLN)</td>
-        <td>Details</td>
-    </tr>
-    {% for transaction in transactions %}
-    <tr>
-        <td>{{transaction.date}}</td>
-        <td>{{transaction.cost}}</td>
-        <td>{{transaction.details}}</td>
-    </tr>
-    {% endfor %}
+    <div class="grid-item grid-item-position-span3-25">
+        <div class="grid-item-header">Transactions</div>
+        <div class="grid-item-body">
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Cost (PLN)</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{transaction.date}}</td>
+                        <td>{{transaction.cost}}</td>
+                        <td>{{transaction.details}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
 
-</table>
+            </table>
+        </div>
+    </div>
 
-<h3>New transaction</h3>
-<form method="post">
-    {% csrf_token %}
-    {{ new_transaction_form }}
-    <input type="submit" value="Submit">
-</form>
+    <div class="grid-item grid-item-position-4-25">
+        <div class="grid-item-header">New transaction</div>
+        <div class="grid-item-body">
+            <form class="form-base" method="post">
+                {% csrf_token %}
+                {% for field in new_transaction_form %}
+                <div>
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <div class="form-button-div">
+                    <input class="button form-button" type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

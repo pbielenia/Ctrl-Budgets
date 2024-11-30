@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<h1>{{portfolio.name}}</h1>
+<div class="navbar">
+    <nav><a href="/investments">Control your budgets</a></nav>
+    <h3>Investment Portfolio / {{portfolio.name}}</h3>
+</div>
+
 <h2>Wartość: {{value|floatformat:2}} PLN</h2>
 
 <h2>Składniki</h2>

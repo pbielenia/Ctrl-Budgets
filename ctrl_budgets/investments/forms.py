@@ -11,3 +11,10 @@ class NewTargetedTransactionForm(forms.Form):
     type = forms.ChoiceField(label="Type", choices=TargetedTransaction.TYPE_CHOICES)
     cost = forms.IntegerField(min_value=5, step_size=5)
     description = forms.CharField(max_length=300, strip=True)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['date'].widget.attrs.update({'class': 'form-input'})
+        self.fields['type'].widget.attrs.update({'class': 'form-input'})
+        self.fields['cost'].widget.attrs.update({'class': 'form-input'})
+        self.fields['description'].widget.attrs.update({'class': 'form-input'})
