@@ -7,26 +7,30 @@
     <nav><a href="/investments">Control your budgets</a></nav>
 </div>
 
-<div>
-    <h1>Targeted Budgets</h1>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>Balance</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for budget in targeted_budgets %}
-                <tr>
-                    <td>{{budget.name}}</td>
-                    <td>{{budget.balance}} PLN</td>
-                    <td><a href="{% url 'investments:targeted_budget' budget.id %}">Details</a></td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
+<div class="content">
+    <div class="grid-item grid-item-position-wide">
+        <div class="grid-item-header">Targeted Budgets</div>
+        <div class="grid-item-body">
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for budget in targeted_budgets %}
+                    <tr>
+                        <td>{{budget.name}}</td>
+                        <td>{{budget.balance}} PLN</td>
+                        <td><a class="button table-button"
+                                href="{% url 'investments:targeted_budget' budget.id %}">Details</a>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
