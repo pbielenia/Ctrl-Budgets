@@ -33,8 +33,9 @@ a:active {
 
     display: flex;
     align-items: center;
-    gap: 30rem;
+
     padding: 10px;
+    justify-content: space-between;
 
     height: 100px;
 
@@ -50,9 +51,10 @@ a:active {
     font-weight: 400;
     color: rgb(247 249 251);
     font-family: Inter, sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
     line-height: 1.25rem;
     margin-bottom: .5rem;
+
 }
 
 .content {
@@ -110,11 +112,11 @@ a:active {
     font-weight: 400;
     color: rgb(247 249 251);
     font-family: Inter, sans-serif;
-    font-size: 1rem;
+    font-size: 1.2rem;
     line-height: 1.25rem;
     margin-bottom: .5rem;
 
-    /* outline: dashed 1px black; */
+    /* outline: dashed 1px violet; */
 }
 
 .grid-item-body {
@@ -122,10 +124,23 @@ a:active {
 
     display: flex;
     align-items: start;
-    justify-content: center;
-
+    justify-content: space-around;
+    gap: 20px;
     /* outline: dashed 1px green; */
 
+}
+
+.grid-item-body h3 {
+    font-weight: 300;
+    color: rgb(247 249 251);
+    font-family: Inter, sans-serif;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    margin-bottom: .5rem;
+}
+
+.flex-direction-column {
+    flex-direction: column;
 }
 
 .label-balance {
@@ -134,19 +149,23 @@ a:active {
     font-weight: 300;
     font-family: Inter, sans-serif;
     color: rgb(247 249 251);
+
+    width: 20rem;
+    text-align: right;
 }
 
 .form-base {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 }
 
 .form-base div {
     display: flex;
     flex-direction: column;
     padding: 5px;
-
+    align-items: stretch;
     /* outline: dotted 1px blue; */
 }
 
@@ -193,6 +212,7 @@ a:active {
     border-width: 2px;
     border-style: solid;
 
+    /* outline: dotted 1px blue; */
 }
 
 .button:hover,
@@ -203,6 +223,16 @@ a:active {
     color: white;
 }
 
+.button-violet {
+    background-color: rgb(165 180 252);
+    border-color: rgb(165 180 252);
+}
+
+.button-middle {
+    width: 120px;
+    padding: .25rem;
+}
+
 .form-button {
     background-color: rgb(165 180 252);
     border-color: rgb(165 180 252);
@@ -210,13 +240,6 @@ a:active {
     margin-top: 20px;
 
     padding: .625rem .625rem;
-}
-
-.table-button {
-    background-color: rgb(165 180 252);
-    border-color: rgb(165 180 252);
-
-    padding: .25rem 1rem;
 }
 
 .form-base select option {
@@ -269,6 +292,26 @@ table tbody tr:hover {
     background-color: #ffffff0d;
 }
 
-/* table tbody:nth-child(even) {
-    background-color: #ffffff0d
-} */
+.width-120px {
+    width: 120px;
+}
+
+.flex-align-right {
+    align-self: center;
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 50px;
+
+    padding: 10px;
+}
+
+.outline-blue {
+    outline: dotted 1px blue;
+}
+
+.outline-cyan {
+    outline: dotted 1px cyan;
+}

@@ -6,6 +6,14 @@ class CreatePortfolioForm(forms.Form):
     name = forms.CharField(label="Name", max_length=80)
 
 
+class ChangeTargetedBudgetsVaultValueForm(forms.Form):
+    value = forms.IntegerField(min_value=5, step_size=5)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['value'].widget.attrs.update({'class': 'form-input'})
+
+
 class NewTargetedTransactionForm(forms.Form):
     date = forms.DateField(label="Date")
     type = forms.ChoiceField(label="Type", choices=TargetedTransaction.TYPE_CHOICES)

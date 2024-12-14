@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.timezone import now
 
 
 class Portfolio(models.Model):
@@ -142,3 +143,11 @@ class PeriodicTargetedTransaction(models.Model):
     type = models.CharField(max_length=4, choices=TYPE_CHOICES, default=TYPE_BUY)
     start_date = models.DateField()
     interval = models.DurationField()
+
+
+class TargetedBudgetsVaultValue(models.Model):
+    value = models.IntegerField()
+    timestamp = models.DateTimeField(default=now)
+
+    class Meta:
+        ordering = ["-timestamp"]

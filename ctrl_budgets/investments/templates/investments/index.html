@@ -10,7 +10,21 @@
 <div class="content">
     <div class="grid-item grid-item-position-wide">
         <div class="grid-item-header">Targeted Budgets</div>
-        <div class="grid-item-body">
+        <div class="grid-item-body flex-direction-column">
+            <div class="flex-align-right">
+                <div class="label-balance">{{targeted_budgets_vault_value}} PLN</div>
+                <form class="form-base width-120px" method="post">
+                    {% csrf_token %}
+                    {% for field in targeted_budgets_vault_form %}
+                    <div>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <div>
+                        <input class="button button-violet button-middle" type="submit" value="Update">
+                    </div>
+                </form>
+            </div>
             <table class="table-responsive">
                 <thead>
                     <tr>
@@ -23,7 +37,7 @@
                     <tr>
                         <td>{{budget.name}}</td>
                         <td>{{budget.balance}} PLN</td>
-                        <td><a class="button table-button"
+                        <td><a class="button button-violet button-middle"
                                 href="{% url 'investments:targeted_budget' budget.id %}">Details</a>
                         </td>
                         {% endfor %}

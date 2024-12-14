@@ -146,14 +146,37 @@ def make_targeted_budgets_data(targeted_budgets) -> list:
     return budgets_data
 
 
+def get_current_targeted_budgets_vault_value():
+    latest = TargetedBudgetsVaultValue.objects.order_by('-timestamp').first()
+    if latest is None:
+        return 0
+    else:
+        return latest.value
+
+
+def make_new_change_targeted_budgets_vault_value_form(request):
+    form = ChangeTargetedBudgetsVaultValueForm(request.POST)
+    return form if form.is_valid() else ChangeTargetedBudgetsVaultValueForm()
+
+
 def index(request):
     context = dict()
 
     portfolios = Portfolio.objects.order_by('name')
     context['portfolios'] = make_portfolios_data(portfolios)
 
+    change_targeted_budgets_vault_value_form = make_new_change_targeted_budgets_vault_value_form(request)
+
+    if change_targeted_budgets_vault_value_form.is_valid():
+        entry = TargetedBudgetsVaultValue()
+        entry.value = change_targeted_budgets_vault_value_form.cleaned_data['value']
+        entry.save()
+        return HttpResponseRedirect(reverse('investments:index'))
+
     targeted_budgets = TargetedBudget.objects.order_by('name')
     context['targeted_budgets'] = make_targeted_budgets_data(targeted_budgets)
+    context['targeted_budgets_vault_form'] = change_targeted_budgets_vault_value_form
+    context['targeted_budgets_vault_value'] = get_current_targeted_budgets_vault_value()
 
     return render(request, 'investments/index.html', context)
 
