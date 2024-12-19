@@ -1,5 +1,6 @@
 from django import forms
 from .models import TargetedTransaction
+import datetime
 
 
 class CreatePortfolioForm(forms.Form):
@@ -15,7 +16,7 @@ class ChangeTargetedBudgetsVaultValueForm(forms.Form):
 
 
 class NewTargetedTransactionForm(forms.Form):
-    date = forms.DateField(label="Date")
+    date = forms.DateField(label="Date", initial=datetime.date.today())
     type = forms.ChoiceField(label="Type", choices=TargetedTransaction.TYPE_CHOICES)
     cost = forms.IntegerField(min_value=5, step_size=5)
     description = forms.CharField(max_length=300, strip=True)
