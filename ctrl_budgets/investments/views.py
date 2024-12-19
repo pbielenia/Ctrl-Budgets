@@ -154,6 +154,18 @@ def get_current_targeted_budgets_vault_value():
         return latest.value
 
 
+def calc_total_budgets_value(budgets_data):
+    total = 0
+    for budget in budgets_data:
+        total = total + budget['balance']
+    return total
+
+
+def calc_current_targeted_budgets_balance(budgets_data, vault_value):
+    total_budgets_value = calc_total_budgets_value(budgets_data)
+    return vault_value - total_budgets_value
+
+
 def make_new_change_targeted_budgets_vault_value_form(request):
     form = ChangeTargetedBudgetsVaultValueForm(request.POST)
     return form if form.is_valid() else ChangeTargetedBudgetsVaultValueForm()
@@ -174,9 +186,13 @@ def index(request):
         return HttpResponseRedirect(reverse('investments:index'))
 
     targeted_budgets = TargetedBudget.objects.order_by('name')
-    context['targeted_budgets'] = make_targeted_budgets_data(targeted_budgets)
+    targeted_budgets_data = make_targeted_budgets_data(targeted_budgets)
+    vault_value = get_current_targeted_budgets_vault_value()
+
+    context['targeted_budgets'] = targeted_budgets_data
     context['targeted_budgets_vault_form'] = change_targeted_budgets_vault_value_form
-    context['targeted_budgets_vault_value'] = get_current_targeted_budgets_vault_value()
+    context['targeted_budgets_vault_value'] = vault_value
+    context['targeted_budgets_balance'] = calc_current_targeted_budgets_balance(targeted_budgets_data, vault_value)
 
     return render(request, 'investments/index.html', context)
 

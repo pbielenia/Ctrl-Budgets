@@ -12,7 +12,10 @@
         <div class="grid-item-header">Targeted Budgets</div>
         <div class="grid-item-body flex-direction-column">
             <div class="flex-align-right">
-                <div class="label-balance">{{targeted_budgets_vault_value}} PLN</div>
+                <div class="label-balance">
+                    <h2>Vault</h2>
+                    <p>{{targeted_budgets_vault_value}} PLN</p>
+                </div>
                 <form class="form-base width-120px" method="post">
                     {% csrf_token %}
                     {% for field in targeted_budgets_vault_form %}
@@ -24,6 +27,10 @@
                         <input class="button button-violet button-middle" type="submit" value="Update">
                     </div>
                 </form>
+                <div class="label-balance">
+                    <h2>Balance</h2>
+                    <p>{{targeted_budgets_balance}} PLN</p>
+                </div>
             </div>
             <table class="table-responsive">
                 <thead>
