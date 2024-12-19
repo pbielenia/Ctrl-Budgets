@@ -35,9 +35,9 @@
                 <tbody>
                     {% for budget in targeted_budgets %}
                     <tr>
-                        <td>{{budget.name}}</td>
-                        <td>{{budget.balance}} PLN</td>
-                        <td><a class="button button-violet button-middle"
+                        <td class="width-30-percent text-align-center">{{budget.name}}</td>
+                        <td class="width-20-percent text-align-right">{{budget.balance}} PLN</td>
+                        <td class="text-align-center"><a class="button button-violet button-middle"
                                 href="{% url 'investments:targeted_budget' budget.id %}">Details</a>
                         </td>
                         {% endfor %}

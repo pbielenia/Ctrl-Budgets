@@ -248,7 +248,9 @@ a:active {
 }
 
 .table-responsive {
-    overflow: auto
+    overflow: auto;
+    table-layout: auto;
+    width: 100%;
 }
 
 table {
@@ -271,7 +273,6 @@ table tfoot tr th,
 table thead tr th {
     white-space: nowrap;
     padding: .5rem 1rem;
-    text-align: left
 }
 
 table tfoot tr th,
@@ -279,7 +280,9 @@ table thead tr th {
     font-size: .75rem;
     line-height: 1rem;
     font-weight: 400;
-    color: #fff6
+    color: #fff6;
+
+    text-align: center
 }
 
 table tbody tr {
@@ -290,6 +293,22 @@ table tbody tr {
 
 table tbody tr:hover {
     background-color: #ffffff0d;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.width-20-percent {
+    width: 20%;
+}
+
+.width-30-percent {
+    width: 30%;
 }
 
 .width-120px {
