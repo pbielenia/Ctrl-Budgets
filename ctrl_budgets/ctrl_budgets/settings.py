@@ -86,11 +86,15 @@ WSGI_APPLICATION = 'ctrl_budgets.wsgi.application'
 
 DATABASES = {}
 
-if 'DATABASE_URL' in os.environ:
-    DATABASES['default'] = dj_database_url.config(
-        conn_max_age=500,
-        conn_health_checks=True
-    )
+if 'DATABASE_NAME' in os.environ:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': os.environ.get('DATABASE_PORT'),
+    }
 else:
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
