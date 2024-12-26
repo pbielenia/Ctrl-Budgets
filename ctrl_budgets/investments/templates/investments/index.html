@@ -31,6 +31,19 @@
                     <h2>Balance</h2>
                     <p>{{targeted_budgets_balance}} PLN</p>
                 </div>
+
+                <form class="form-base width-120px" method="post">
+                    {% csrf_token %}
+                    {% for field in targeted_budget_create_form %}
+                    <div>
+                        <label>New budget</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <div>
+                        <input class="button button-violet button-middle" type="submit" value="Create">
+                    </div>
+                </form>
             </div>
             <table class="table-responsive">
                 <thead>

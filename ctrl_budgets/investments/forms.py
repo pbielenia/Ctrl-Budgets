@@ -4,7 +4,17 @@ import datetime
 
 
 class CreatePortfolioForm(forms.Form):
+    # max_length shall match models.Portfolio.name
     name = forms.CharField(label="Name", max_length=80)
+
+
+class CreateNewTargetedBudgetForm(forms.Form):
+    # max_langth shall match models.TargetedBudget.name
+    name = forms.CharField(label="Name", max_length=120)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update({'class': 'form-input'})
 
 
 class ChangeTargetedBudgetsVaultValueForm(forms.Form):
@@ -19,6 +29,7 @@ class NewTargetedTransactionForm(forms.Form):
     date = forms.DateField(label="Date", initial=datetime.date.today())
     type = forms.ChoiceField(label="Type", choices=TargetedTransaction.TYPE_CHOICES)
     cost = forms.IntegerField(min_value=5, step_size=5)
+    # max_length shall match models.TargetedTransaction.description
     description = forms.CharField(max_length=300, strip=True)
 
     def __init__(self, *args, **kwargs):

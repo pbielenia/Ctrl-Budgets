@@ -171,6 +171,11 @@ def make_new_change_targeted_budgets_vault_value_form(request):
     return form if form.is_valid() else ChangeTargetedBudgetsVaultValueForm()
 
 
+def make_new_create_new_targeted_budget_form(request):
+    form = CreateNewTargetedBudgetForm(request.POST)
+    return form if form.is_valid() else CreateNewTargetedBudgetForm()
+
+
 def index(request):
     context = dict()
 
@@ -178,21 +183,32 @@ def index(request):
     context['portfolios'] = make_portfolios_data(portfolios)
 
     change_targeted_budgets_vault_value_form = make_new_change_targeted_budgets_vault_value_form(request)
-
     if change_targeted_budgets_vault_value_form.is_valid():
         entry = TargetedBudgetsVaultValue()
         entry.value = change_targeted_budgets_vault_value_form.cleaned_data['value']
         entry.save()
         return HttpResponseRedirect(reverse('investments:index'))
+    else:
+        context['targeted_budgets_vault_form'] = change_targeted_budgets_vault_value_form
+
+    create_new_targeted_budget_form = make_new_create_new_targeted_budget_form(request)
+    if create_new_targeted_budget_form.is_valid():
+        entry = TargetedBudget()
+        entry.name = create_new_targeted_budget_form.cleaned_data['name']
+        entry.save()
+        return HttpResponseRedirect(reverse('investments:index'))
+    else:
+        context['targeted_budget_create_form'] = create_new_targeted_budget_form
 
     targeted_budgets = TargetedBudget.objects.order_by('name')
     targeted_budgets_data = make_targeted_budgets_data(targeted_budgets)
-    vault_value = get_current_targeted_budgets_vault_value()
-
     context['targeted_budgets'] = targeted_budgets_data
-    context['targeted_budgets_vault_form'] = change_targeted_budgets_vault_value_form
+
+    vault_value = get_current_targeted_budgets_vault_value()
     context['targeted_budgets_vault_value'] = vault_value
-    context['targeted_budgets_balance'] = calc_current_targeted_budgets_balance(targeted_budgets_data, vault_value)
+
+    targeted_budgets_balance = calc_current_targeted_budgets_balance(targeted_budgets_data, vault_value)
+    context['targeted_budgets_balance'] = targeted_budgets_balance
 
     return render(request, 'investments/index.html', context)
 
