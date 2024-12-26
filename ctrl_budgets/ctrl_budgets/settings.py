@@ -26,12 +26,12 @@ load_dotenv(env_path)
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 's=a23)1zysa4ey2xs%xsm*k9075c5orjt5w^iy_+mm-12517dm')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG", '') != 'False'
+DEBUG = os.environ.get("DJANGO_DEBUG", False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(',')
 
 
 # Application definition
@@ -88,7 +88,7 @@ DATABASES = {}
 
 if 'DATABASE_NAME' in os.environ:
     DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.{}'.format(os.environ.get('DATABASE_ENGINE')),
         'NAME': os.environ.get('DATABASE_NAME'),
         'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
