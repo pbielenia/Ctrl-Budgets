@@ -157,7 +157,8 @@ def get_current_targeted_budgets_vault_value():
 def calc_total_budgets_value(budgets_data):
     total = 0
     for budget in budgets_data:
-        total = total + budget['balance']
+        # Treat negative values as debts.
+        total = total + abs(budget['balance'])
     return total
 
 
