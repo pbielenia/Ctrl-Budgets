@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD python ctrl_budgets/manage.py runserver 0.0.0.0:8000
+CMD ["gunicorn", "--config", "gunicorn_config.py", "ctrl_budgets.wsgi"]
