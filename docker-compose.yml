@@ -15,7 +15,7 @@ services:
 
   app:
     build: .
-    container_name: app
+    container_name: ctrl-budgets-app
     ports:
       - '8000:8000'
     volumes:
