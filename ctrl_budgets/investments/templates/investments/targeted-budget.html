@@ -1,59 +1,68 @@
 {% extends 'ctrl_budgets/main.html' %}
 
 {% block content %}
-<div class="navbar">
-    <nav><a href="/investments">Control your budgets</a></nav>
-    <h3>Targeted Budget / {{ budget.name }}</h3>
-</div>
-
-<div class="content">
-    <div class="grid-item">
-        <div class="grid-item-header">Balance</div>
-        <div class="grid-item-body">
-            <div class="label-balance">{{balance}} PLN</div>
-        </div>
+<div class="content-container">
+    <div class="navbar">
+        <nav><a href="/investments">Control your budgets</a></nav>
     </div>
 
-    <div class="grid-item grid-item-position-span3-25">
-        <div class="grid-item-header">Transactions</div>
-        <div class="grid-item-body">
-            <table class="table-responsive">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Cost</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for transaction in transactions %}
-                    <tr>
-                        <td class="width-30-percent">{{transaction.date}}</td>
-                        <td class="text-align-right width-20-percent">{{transaction.cost}} PLN</td>
-                        <td class="text-align-center">{{transaction.details}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+    <div class="grid-container-outer">
+        <div class="grid-item-header">Targeted Budgets / {{ budget.name }}</div>
 
-            </table>
-        </div>
-    </div>
+        <div class="grid-container-main">
 
-    <div class="grid-item grid-item-position-4-25">
-        <div class="grid-item-header">New transaction</div>
-        <div class="grid-item-body">
-            <form class="form-base" method="post">
-                {% csrf_token %}
-                {% for field in new_transaction_form %}
-                <div>
-                    <label>{{ field.label }}</label>
-                    {{ field }}
+            <!-- Balance label -->
+            <div class="grid-item">
+                <div class="grid-item-header">Balance</div>
+                <div class="grid-item-body">
+                    <div class="label-balance">{{balance}} PLN</div>
                 </div>
-                {% endfor %}
-                <div>
-                    <input class="button button-violet button-middle" type="submit" value="Submit">
+            </div>
+
+            <!-- Commited transactions table -->
+            <div class="grid-item grid-item-position-transactions-table">
+                <div class="grid-item-header">Transactions</div>
+                <div class="grid-item-body">
+                    <table class="table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Cost</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transaction in transactions %}
+                            <tr>
+                                <td class="width-30-percent">{{transaction.date}}</td>
+                                <td class="text-align-right width-20-percent">{{transaction.cost}} PLN</td>
+                                <td class="text-align-center">{{transaction.details}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
                 </div>
-            </form>
+            </div>
+
+            <!-- New transaction form -->
+            <div class="grid-item grid-item-position-new-transaction-form">
+                <div class="grid-item-header">New transaction</div>
+                <div class="grid-item-body">
+                    <form class="form-base" method="post">
+                        {% csrf_token %}
+                        {% for field in new_transaction_form %}
+                        <div>
+                            <label>{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+                        <div>
+                            <input class="button button-violet button-middle" type="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

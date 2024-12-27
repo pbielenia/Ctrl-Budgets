@@ -1,15 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
 
-
+html,
 body {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-
-    padding: 50px 25px;
-    background: rgb(28 28 28);
-
-    /* outline: dashed 1px pink; */
+    margin: 0;
+    height: 100%;
+    background: #0c0c0c;
 }
 
 a:link {
@@ -28,22 +23,30 @@ a:active {
     text-decoration: none;
 }
 
-.navbar {
-    align-self: center;
 
-    display: flex;
-    align-items: center;
-
-    padding: 10px;
-    justify-content: space-between;
-
-    height: 100px;
-
-    width: 80vw;
+.content-container {
+    height: 100%;
+    margin: auto;
+    background: #111116;
+    padding: 30px 60px;
     max-width: 1500px;
     min-width: 1000px;
 
-    /* outline: dashed 1px cyan; */
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.navbar {
+    height: 100px;
+    width: 100%;
+    margin-bottom: 50px;
+    padding: 20px 20px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .navbar h3,
@@ -57,77 +60,82 @@ a:active {
 
 }
 
-.content {
-    align-self: center;
+.grid-container-outer {
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
-    column-gap: 30px;
-    row-gap: 30px;
-
-    width: 80vw;
-    max-width: 1500px;
-    min-width: 1000px;
-    padding: 30px 30px;
-
-    justify-content: center;
-
-    /* outline: dashed 1px yellowgreen; */
-}
-
-.grid-item {
     display: flex;
     flex-direction: column;
 
-    background: #2b2b2b;
-    padding: 30px 30px;
-
-    border: 0.1rem solid rgba(34, 42, 66, 0.05);
-    border-radius: 1rem;
-
-    /* outline: dashed 1px black; */
+    border: 0.1rem solid #3b3b3b;
+    border-radius: 0.2rem;
 }
 
-.grid-item-position-wide {
+.grid-container-main {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 150px;
+    grid-gap: 30px;
+    justify-content: center;
+}
+
+.grid-item {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    background: #0b0b0c;
+    padding: 10px 20px;
+
+    border: 0.1rem solid #3b3b3b;
+    border-radius: 0.2rem;
+
+}
+
+.grid-item-position-targeted-budgets {
     grid-column: 1/-1;
+    grid-row: span 3;
 }
 
-.grid-item-position-span3-25 {
-    grid-column-start: span 3;
-    grid-row-start: 2;
-    grid-row-end: 5;
+.grid-item-position-transactions-table {
+    grid-column-start: 1;
+    grid-column-end: span 3;
+    grid-row: span 2;
 }
 
-.grid-item-position-4-25 {
+.grid-item-position-new-transaction-form {
     grid-column: 4;
-    grid-row-start: 2;
-    grid-row-end: 5;
+    grid-row: span 3;
+}
+
+.grid-item-height-2 {
+    grid-row: span 2;
+}
+
+.grid-item-width-3 {
+    grid-column-start: span 3;
 }
 
 .grid-item-header {
-    min-height: 40px;
-    padding: 0 10px;
+    height: 60px;
 
-    font-weight: 400;
+    font-weight: 600;
     color: rgb(247 249 251);
     font-family: Inter, sans-serif;
     font-size: 1.2rem;
-    line-height: 1.25rem;
-    margin-bottom: .5rem;
-
-    /* outline: dashed 1px violet; */
 }
 
 .grid-item-body {
     flex-grow: 1;
 
-    display: flex;
+
     align-items: start;
     justify-content: space-around;
+    flex-direction: column;
     gap: 20px;
-    /* outline: dashed 1px green; */
-
 }
 
 .grid-item-body h3 {
@@ -139,19 +147,11 @@ a:active {
     margin-bottom: .5rem;
 }
 
-.flex-direction-column {
-    flex-direction: column;
-}
-
 .label-balance {
-    line-height: 2rem;
     font-size: 1.5rem;
     font-weight: 300;
     font-family: Inter, sans-serif;
     color: rgb(247 249 251);
-
-    width: 20rem;
-    text-align: right;
 }
 
 .form-base {
@@ -166,7 +166,6 @@ a:active {
     flex-direction: column;
     padding: 5px;
     align-items: stretch;
-    /* outline: dotted 1px blue; */
 }
 
 .form-base div label {
@@ -327,10 +326,26 @@ table tbody tr:hover {
     padding: 10px;
 }
 
-.outline-blue {
+.outline-1 {
     outline: dotted 1px blue;
 }
 
-.outline-cyan {
+.outline-2 {
     outline: dotted 1px cyan;
+}
+
+.outline-3 {
+    outline: dashed 1px yellowgreen;
+}
+
+.outline-4 {
+    outline: dashed 1px pink;
+}
+
+.outline-5 {
+    outline: dashed 1px violet;
+}
+
+.outline-6 {
+    outline: dashed 1px green;
 }
