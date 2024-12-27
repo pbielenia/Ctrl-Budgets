@@ -259,7 +259,7 @@ a:active {
 .button-delete {
     background-color: #b81717;
     background-image: url("icon-trash-white.png");
-    background-size: auto 65%;
+    background-size: auto 50%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -267,7 +267,7 @@ a:active {
 .button-edit {
     background-color: #1793b8;
     background-image: url("icon-edit-white.png");
-    background-size: auto 65%;
+    background-size: auto 50%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -275,7 +275,7 @@ a:active {
 .button-show-details {
     background-color: #1c4aaf;
     background-image: url("icon-show-details-white.png");
-    background-size: auto 65%;
+    background-size: auto 50%;
     background-repeat: no-repeat;
     background-position: center;
 }
