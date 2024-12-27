@@ -17,11 +17,10 @@ services:
     build: .
     container_name: ctrl-budgets-app
     ports:
-      - '8000:8000'
+      - '${DOCKER_APP_PORT}:8000'
     volumes:
       - .:/app
     environment:
-      - DJANGO_ENV=${DJANGO_ENV}
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
