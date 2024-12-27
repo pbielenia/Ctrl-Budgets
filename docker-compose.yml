@@ -5,13 +5,13 @@ services:
     restart: always
     shm_size: 128mb
     environment:
-     - POSTGRES_DB=${DATABASE_NAME}
-     - POSTGRES_USER=${DATABASE_USER}
-     - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     ports:
-    - '5432:5432'
+      - '5432:5432'
     volumes:
-    - pg_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
 
   app:
     build: .
@@ -31,4 +31,4 @@ services:
       - ctrl-budgets-db
 
 volumes:
-  pg_data:
+  postgres_data:
