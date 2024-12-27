@@ -76,6 +76,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Balance</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,8 +84,9 @@
                             <tr>
                                 <td class="width-30-percent text-align-center">{{budget.name}}</td>
                                 <td class="width-20-percent text-align-right">{{budget.balance}} PLN</td>
-                                <td class="text-align-center"><a class="button button-violet button-middle"
-                                        href="{% url 'investments:targeted_budget' budget.id %}">Details</a>
+                                <td class="buttons-table-row-container">
+                                    <a class="button-table-row button-show-details"
+                                        href="{% url 'investments:targeted_budget' budget.id %}"></a>
                                 </td>
                                 {% endfor %}
                             </tr>

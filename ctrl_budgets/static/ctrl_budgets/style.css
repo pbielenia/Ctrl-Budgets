@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
 
-html,
 body {
     margin: 0;
     height: 100%;
@@ -106,13 +105,16 @@ a:active {
     grid-row: span 2;
 }
 
-.grid-item-position-new-transaction-form {
+.grid-item-column-4 {
     grid-column: 4;
-    grid-row: span 3;
 }
 
 .grid-item-height-2 {
     grid-row: span 2;
+}
+
+.grid-item-height-3 {
+    grid-row: span 3;
 }
 
 .grid-item-width-3 {
@@ -210,8 +212,6 @@ a:active {
     border-radius: .5rem;
     border-width: 2px;
     border-style: solid;
-
-    /* outline: dotted 1px blue; */
 }
 
 .button:hover,
@@ -230,6 +230,54 @@ a:active {
 .button-middle {
     width: 120px;
     padding: .25rem;
+}
+
+.buttons-table-row-container {
+    align-self: center;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.button-table-row {
+    width: 50px;
+    height: 30px;
+    border-radius: .2rem;
+    border-style: none;
+}
+
+.button-table-row:hover,
+.button-table-row:focus,
+.button-table-row:active {
+    outline: none;
+    filter: brightness(200%);
+}
+
+.button-delete {
+    background-color: #b81717;
+    background-image: url("icon-trash-white.png");
+    background-size: auto 65%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.button-edit {
+    background-color: #1793b8;
+    background-image: url("icon-edit-white.png");
+    background-size: auto 65%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.button-show-details {
+    background-color: #1c4aaf;
+    background-image: url("icon-show-details-white.png");
+    background-size: auto 65%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .form-button {
@@ -312,18 +360,6 @@ table tbody tr:hover {
 
 .width-120px {
     width: 120px;
-}
-
-.flex-align-right {
-    align-self: center;
-
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 50px;
-
-    padding: 10px;
 }
 
 .outline-1 {
