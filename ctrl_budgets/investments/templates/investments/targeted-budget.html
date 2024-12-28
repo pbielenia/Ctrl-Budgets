@@ -66,37 +66,103 @@
                             </tr>
                             {% endfor %}
                         </tbody>
-
                     </table>
                 </div>
             </div>
 
 
-            <!-- Scheduled transactions table -->
-            <div class="grid-item grid-item-width-3 grid-item-height-2">
-                <div class="grid-item-header">Scheduled transactions</div>
+            <!-- Planned transactions table -->
+            <div class="grid-item grid-item-width-4 grid-item-height-2">
+                <div class="grid-item-header">Planned transactions</div>
                 <div class="grid-item-body">
-                </div>
-            </div>
-
-            <!-- Add new scheduled transactions -->
-            <div class="grid-item grid-item-height-2">
-                <div class="grid-item-header">Schedule new transaction</div>
-                <div class="grid-item-body">
+                    <div class="button-table-row button-add-new align-self-flex-end">Add new</div>
+                    <table class="table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Cost</th>
+                                <th>Details</th>
+                                <th>Deadline</th>
+                                <th>Planned date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!-- Name -->
+                                <td class="text-align-center">Planned transaction 1</td>
+                                <!-- Cost -->
+                                <td class="text-align-right width-20-percent">-200 PLN</td>
+                                <!-- Details -->
+                                <td class="width-30-percent">Spending</td>
+                                <!-- Deadline -->
+                                <td class="width-30-percent">marzec 2025</td>
+                                <!-- Planned date -->
+                                <td class="width-30-percent">luty 2025</td>
+                                <!-- Actions -->
+                                <td class="buttons-table-row-container">
+                                    <div class="button-table-row button-edit"></div>
+                                    <div class="button-table-row button-delete"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <!-- Name -->
+                                <td class="text-align-center">Upcoming transaction 1</td>
+                                <!-- Cost -->
+                                <td class="text-align-right width-20-percent">300 PLN</td>
+                                <!-- Details -->
+                                <td class="width-30-percent">Period transaction 1</td>
+                                <!-- Deadline -->
+                                <td class="width-30-percent">-</td>
+                                <!-- Planned date -->
+                                <td class="width-30-percent">1 stycznia 2024</td>
+                                <!-- Actions -->
+                                <td class="buttons-table-row-container">
+                                    <div class="button-table-row button-edit"></div>
+                                    <div class="button-table-row button-delete"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
             <!-- Periodic transactions table -->
-            <div class="grid-item grid-item-width-3 grid-item-height-2">
+            <div class="grid-item grid-item-width-4 grid-item-height-2">
                 <div class="grid-item-header">Periodic transactions</div>
                 <div class="grid-item-body">
-                </div>
-            </div>
-
-            <!-- Add new period transactions -->
-            <div class="grid-item grid-item-height-2">
-                <div class="grid-item-header">Set new periodic transaction</div>
-                <div class="grid-item-body">
+                    <div class="button-table-row button-add-new align-self-flex-end">Add new</div>
+                    <table class="table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Cost</th>
+                                <th>Start date</th>
+                                <th>Interval</th>
+                                <th>Next occurance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!-- Description -->
+                                <td class="text-align-center">Periodic transaction 1</td>
+                                <!-- Cost -->
+                                <td class="text-align-right width-20-percent">300 PLN</td>
+                                <!-- Start date -->
+                                <td class="width-30-percent">27 grudnia 2024</td>
+                                <!-- Interval -->
+                                <td class="width-30-percent">każdy 1 dzień miesiąca</td>
+                                <!-- Next occurance -->
+                                <td class="width-30-percent">1 stycznia 2024</td>
+                                <!-- Actions -->
+                                <td class="buttons-table-row-container">
+                                    <div class="button-table-row button-edit"></div>
+                                    <div class="button-table-row button-delete"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -120,6 +120,10 @@ a:active {
     grid-column-start: span 3;
 }
 
+.grid-item-width-4 {
+    grid-column-start: span 4;
+}
+
 .grid-item-header {
     height: 60px;
 
