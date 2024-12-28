@@ -22,7 +22,6 @@ a:active {
     text-decoration: none;
 }
 
-
 .content-container {
     height: 100%;
     margin: auto;
@@ -133,11 +132,9 @@ a:active {
 .grid-item-body {
     flex-grow: 1;
 
-
+    display: flex;
     align-items: start;
-    justify-content: space-around;
     flex-direction: column;
-    gap: 20px;
 }
 
 .grid-item-body h3 {
@@ -256,6 +253,19 @@ a:active {
     filter: brightness(200%);
 }
 
+.button-add-new {
+    background-color: #17b832;
+    width: 80px;
+
+    color: rgb(247 249 251);
+    font-family: Inter, sans-serif;
+    font-size: 0.8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .button-delete {
     background-color: #b81717;
     background-image: url("icon-trash-white.png");
@@ -292,6 +302,10 @@ a:active {
 .form-base select option {
     color: rgb(165 180 252);
     background-color: #2b2b2b;
+}
+
+.align-self-flex-end {
+    align-self: flex-end;
 }
 
 .table-responsive {
