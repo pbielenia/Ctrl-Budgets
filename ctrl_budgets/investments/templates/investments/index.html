@@ -1,102 +1,91 @@
 {% extends 'ctrl_budgets/main.html' %}
-
-<br>
-
 {% block content %}
 
-<div class="content-container">
-    <div class="navbar">
-        <nav><a href="/investments">Control your budgets</a></nav>
-    </div>
+<!-- Targeted Budgets -->
+<div class="grid-container-outer">
+    <div class="grid-item-header">Targeted Budgets</div>
+    <div class="grid-container-main">
 
-    <!-- Targeted Budgets -->
-    <div class="grid-container-outer">
-        <div class="grid-item-header">Targeted Budgets</div>
-        <div class="grid-container-main">
-
-            <!-- Vault value -->
-            <div class="grid-item">
-                <div class="grid-item-header">Vault</div>
-                <div class="grid-item-body">
-                    <div class="label-balance">{{targeted_budgets_vault_value}} PLN</div>
-                </div>
+        <!-- Vault value -->
+        <div class="grid-item">
+            <div class="grid-item-header">Vault</div>
+            <div class="grid-item-body">
+                <div class="label-balance">{{targeted_budgets_vault_value}} PLN</div>
             </div>
-
-            <!-- Update Vault value -->
-            <div class="grid-item">
-                <div class="grid-item-header">Update vault value</div>
-                <div class="grid-item-body">
-                    <form class="form-base width-120px" method="post">
-                        {% csrf_token %}
-                        {% for field in targeted_budgets_vault_form %}
-                        <div>
-                            {{ field }}
-                        </div>
-                        {% endfor %}
-                        <div>
-                            <input class="button button-violet button-middle" type="submit" value="Update">
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Targeted Budgets and Vault balance-->
-            <div class="grid-item">
-                <div class="grid-item-header">Balance</div>
-                <div class="grid-item-body">
-                    <div class="label-balance">{{targeted_budgets_balance}} PLN</div>
-                </div>
-            </div>
-
-            <!-- Create new budget form -->
-            <div class="grid-item grid-item-height-2">
-                <div class="grid-item-header">Add new budget</div>
-                <div class="grid-item-body">
-                    <form class="form-base width-120px" method="post">
-                        {% csrf_token %}
-                        {% for field in targeted_budget_create_form %}
-                        <div>
-                            <label>Name</label>
-                            {{ field }}
-                        </div>
-                        {% endfor %}
-                        <div>
-                            <input class="button button-violet button-middle" type="submit" value="Create">
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Targeted Budgets table -->
-            <div class="grid-item grid-item-width-3 grid-item-height-2">
-                <div class="grid-item-header">Balance</div>
-                <div class="grid-item-body">
-                    <table class="table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Balance</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for budget in targeted_budgets %}
-                            <tr>
-                                <td class="width-30-percent text-align-center">{{budget.name}}</td>
-                                <td class="width-20-percent text-align-right">{{budget.balance}} PLN</td>
-                                <td class="buttons-table-row-container">
-                                    <a class="button-table-row button-show-details"
-                                        href="{% url 'investments:targeted_budget' budget.id %}"></a>
-                                </td>
-                                {% endfor %}
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
         </div>
+
+        <!-- Update Vault value -->
+        <div class="grid-item">
+            <div class="grid-item-header">Update vault value</div>
+            <div class="grid-item-body">
+                <form class="form-base width-120px" method="post">
+                    {% csrf_token %}
+                    {% for field in targeted_budgets_vault_form %}
+                    <div>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <div>
+                        <input class="button button-violet button-middle" type="submit" value="Update">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Targeted Budgets and Vault balance-->
+        <div class="grid-item">
+            <div class="grid-item-header">Balance</div>
+            <div class="grid-item-body">
+                <div class="label-balance">{{targeted_budgets_balance}} PLN</div>
+            </div>
+        </div>
+
+        <!-- Create new budget form -->
+        <div class="grid-item grid-item-height-2">
+            <div class="grid-item-header">Add new budget</div>
+            <div class="grid-item-body">
+                <form class="form-base width-120px" method="post">
+                    {% csrf_token %}
+                    {% for field in targeted_budget_create_form %}
+                    <div>
+                        <label>Name</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <div>
+                        <input class="button button-violet button-middle" type="submit" value="Create">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Targeted Budgets table -->
+        <div class="grid-item grid-item-width-3 grid-item-height-2">
+            <div class="grid-item-header">Balance</div>
+            <div class="grid-item-body">
+                <table class="table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Balance</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for budget in targeted_budgets %}
+                        <tr>
+                            <td class="width-30-percent text-align-center">{{budget.name}}</td>
+                            <td class="width-20-percent text-align-right">{{budget.balance}} PLN</td>
+                            <td class="buttons-table-row-container">
+                                <a class="button-table-row button-show-details"
+                                    href="{% url 'investments:targeted_budget' budget.id %}"></a>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
     {% endblock %}
-
-    <!-- <div onclick="window.location.href='{% url 'investments:portfolio' portfolio.pk %}'"> -->

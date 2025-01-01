@@ -11,9 +11,15 @@
 </head>
 
 <body>
-    {% block content %}
-    {% endblock %}
+    <div class="content-container">
+        <div class="navbar">
+            <nav><a href="/investments">Control your budgets</a></nav>
+        </div>
 
+        {% block content %}
+        {% endblock %}
+
+    </div>
 </body>
 
 </html>
