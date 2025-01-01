@@ -1,9 +1,7 @@
-from inspect import trace
-
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import CreateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
 import logging
 
@@ -329,6 +327,26 @@ def portfolio_element(request, portfolio_id, asset_type_id):
 
 def targeted_budget_new(request):
     pass
+
+
+class TargetedTransactionCreateView(CreateView):
+    model = TargetedTransaction
+    template_name = 'investments/targeted_transaction_create_form.html'
+    form_class = NewTargetedTransactionForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['budget_id'] = self.kwargs['budget_id']
+        return context
+
+    def form_valid(self, form):
+        budget_id = self.get_context_data()['budget_id']
+        form.instance.targeted_budget_id = budget_id
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        budget_id = self.get_context_data()['budget_id']
+        return reverse('investments:targeted_budget', args=[budget_id, ])
 
 
 class TargetedTransactionDeleteView(DeleteView):

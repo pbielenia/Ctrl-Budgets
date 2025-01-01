@@ -25,7 +25,7 @@ class ChangeTargetedBudgetsVaultValueForm(forms.Form):
         self.fields['value'].widget.attrs.update({'class': 'form-input'})
 
 
-class NewTargetedTransactionForm(forms.Form):
+class NewTargetedTransactionForm(forms.ModelForm):
     date = forms.DateField(label="Date", initial=datetime.date.today())
     type = forms.ChoiceField(label="Type", choices=TargetedTransaction.TYPE_CHOICES)
     cost = forms.IntegerField(min_value=5, step_size=5)
@@ -38,3 +38,7 @@ class NewTargetedTransactionForm(forms.Form):
         self.fields['type'].widget.attrs.update({'class': 'form-input'})
         self.fields['cost'].widget.attrs.update({'class': 'form-input'})
         self.fields['description'].widget.attrs.update({'class': 'form-input'})
+
+    class Meta:
+        model = TargetedTransaction
+        fields = ["date", "type", "cost", "description"]
