@@ -56,7 +56,8 @@
                             <td class="text-align-center">{{transaction.details}}</td>
                             <td class="buttons-table-row-container">
                                 <div class="button-table-row button-edit"></div>
-                                <div class="button-table-row button-delete"></div>
+                                <a class="button-table-row button-delete"
+                                    href="{% url 'investments:targeted_transaction_confirm_delete' transaction.id %}"></a>
                             </td>
                         </tr>
                         {% endfor %}

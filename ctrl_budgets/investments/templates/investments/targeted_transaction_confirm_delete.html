@@ -1,0 +1,15 @@
+{% extends 'ctrl_budgets/main.html' %}
+{% block content %}
+
+<div class="grid-container-outer">
+    Remove element
+    <p><strong>{{ object.description }}</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Confirm">
+        <a href="{% url 'investments:targeted_budget' object.targeted_budget.id %}">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

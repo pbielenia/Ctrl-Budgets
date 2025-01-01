@@ -1,8 +1,9 @@
 from inspect import trace
 
+from django.views.generic.edit import DeleteView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 import logging
 
@@ -330,6 +331,15 @@ def targeted_budget_new(request):
     pass
 
 
+class TargetedTransactionDeleteView(DeleteView):
+    model = TargetedTransaction
+    template_name = 'investments/targeted_transaction_confirm_delete.html'
+
+    def get_success_url(self):
+        budget_id = self.get_object().targeted_budget.id
+        return reverse('investments:targeted_budget', args=(budget_id, ))
+
+
 def make_targeted_budget_transactions_data(budget_id, number_of_transactions):
     transactions = TargetedTransaction.objects.filter(targeted_budget=budget_id)[:number_of_transactions]
     data = list()
@@ -338,6 +348,7 @@ def make_targeted_budget_transactions_data(budget_id, number_of_transactions):
         cost = (-transaction.cost, transaction.cost)[transaction.type == transaction.TYPE_DEPOSIT]
 
         data.append({
+            'id': transaction.id,
             'date': transaction.date,
             'cost': cost,
             'details': transaction.description})
