@@ -16,6 +16,9 @@ urlpatterns = [
          views.TargetedTransactionCreateView.as_view(),
          name="targeted_transaction_create"),
 
+    path('targeted-budget/transaction/update/<str:pk>/',
+         views.TargetedTransactionUpdateView.as_view(),
+         name="targeted_transaction_update"),
     path('targeted-budget/transaction/delete/<str:pk>/',
          views.TargetedTransactionDeleteView.as_view(),
          name="targeted_transaction_confirm_delete")
